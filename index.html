@@ -1,0 +1,1326 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Name - Game Designer Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <!-- Added Tone.js for sound effects --><script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"></script>
+    <style>
+        /* General styles */
+        body {
+            /* NES-like dark blue/gray background */
+            background-color: #2a2a3e;
+            color: #fff;
+            font-family: 'Press Start 2P', cursive;
+            image-rendering: pixelated;
+            overflow-x: hidden;
+        }
+
+        /* Removed the CRT scanline effect for this cleaner theme */
+
+        h1, h2, h3, .nav-link {
+            text-shadow: 2px 2px #000;
+        }
+
+        /* NES-style Header */
+        header {
+            background-color: #b0b0b0; /* NES Gray */
+            border-bottom: 4px solid #222;
+            padding: 8px 16px;
+        }
+
+        .header-title {
+            color: #c04040; /* NES Red */
+            /* font-size: 1.5rem; */ /* Replaced with Tailwind */
+            text-shadow: 2px 2px #222;
+        }
+
+        /* NEW: Top Navigation Bar */
+        .nav-top {
+            background-color: #4a4a62; /* Darker blue-gray, similar to image */
+            border-bottom: 4px solid #222;
+            padding: 0 16px;
+            display: flex;
+            justify-content: center; /* Centered the icons */
+            align-items: center;
+            height: 60px; /* Height of the bar */
+            position: fixed;
+            top: 54px; /* Adjust based on header height */
+            left: 0;
+            right: 0;
+            z-index: 40;
+            transition: opacity 0.2s ease-in-out;
+        }
+        
+        /* NEW: Hide nav-top when on home-page */
+        body.home-page .nav-top {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .top-nav-icons-container {
+            display: flex;
+            /* gap: 40px; */ /* Replaced with Tailwind */
+        }
+
+        .top-nav-icon {
+            width: 40px;
+            height: 40px;
+            /* background-color: transparent; */ /* Removed bg color */
+            border: 4px solid transparent; /* Removed border, ready for PNG */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            position: relative;
+            transition: transform 0.1s ease-in-out, border-color 0.1s ease-in-out; /* Ensured transform transition */
+        }
+        .top-nav-icon:hover {
+            transform: scale(1.2); /* Increased scale effect on hover */
+        }
+        .top-nav-icon.active {
+            /* border-color: #00a0e8; */ /* Removed blue border for active */
+            transform: scale(1.2); /* Added scale effect for active */
+        }
+
+        .top-nav-icon .tooltip {
+            visibility: hidden;
+            opacity: 0;
+            background-color: #fff; /* White background */
+            color: #000; /* Black text */
+            text-shadow: none; /* Remove text shadow */
+            text-align: center;
+            padding: 8px 12px;
+            border-radius: 4px;
+            position: absolute;
+            z-index: 100;
+            bottom: -50px; /* Position below the icon */
+            left: 50%;
+            transform: translateX(-50%);
+            white-space: nowrap;
+            font-size: 0.7rem;
+            border: 2px solid #000; /* Black border */
+            transition: opacity 0.2s;
+        }
+
+        .top-nav-icon:hover .tooltip {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        /* Page view transitions */
+        .page-view {
+            animation: fadeIn 0.4s ease-in-out;
+            padding-top: 130px; /* Adjust for header (54px) + top-nav (60px) + some spacing = 130px */
+            min-height: 100vh; /* Ensure it takes full viewport height */
+            display: flex; /* Use flexbox for consistent vertical alignment */
+            flex-direction: column; /* Stack content vertically */
+            justify-content: flex-start; /* Start content from the top */
+        }
+        
+        /* Specific page adjustments for content alignment */
+        /* Removed studies-view, about-view */
+        #contact-view, 
+        #project-detail-1, #project-detail-2, #project-detail-3, #project-detail-4, #project-detail-5, #project-detail-6, #project-detail-7, /* Added placeholders */
+        #art-detail-1, #art-detail-2, #art-detail-3, #art-detail-4, #art-detail-5, #art-detail-6 {
+            justify-content: space-between; /* Push content to top, button/footer to bottom */
+        }
+        
+        /* Fix for alignment on simple pages */
+        /* Removed studies-view, about-view */
+        #contact-view > div:first-child {
+             width: 100%; /* Ensure content wrapper takes full width */
+        }
+
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Home Page (Super Ghouls 'n Ghosts style) */
+        #home-view {
+            background-color: #000;
+            padding-top: 0; /* Reset padding to 0 */
+            justify-content: flex-start; /* Align content to the top */
+            align-items: center; /* Center content horizontally */
+        }
+        
+        /* NEW: Home View Layout Container */
+        #home-view-content {
+            position: relative; 
+            z-index: 20; 
+            display: flex;
+            flex-direction: column; 
+            align-items: center; 
+            width: 100%;
+            max-width: none; /* Allow full width */
+            padding: 0; /* Remove padding */
+            justify-content: flex-start; /* Align content to top */
+        }
+
+        .title-gif-container {
+            width: 100%; /* Full width */
+            max-width: 100%; /* Full width */
+            margin-bottom: 0; /* No margin below */
+            margin-left: auto;
+            margin-right: auto;
+            position: relative;
+            top: auto;
+            left: auto;
+            z-index: 10;
+            display: block;
+            justify-content: unset;
+            align-items: unset;
+            overflow: visible;
+            height: auto;
+            margin-top: 114px; /* Space for fixed header + nav */
+        }
+        .title-gif-container img {
+            width: 100%;
+            height: 30vh; /* Shorter banner on mobile */
+            /* md:height: 40vh; */ /* REMOVED - Handled by @media rule */
+            object-fit: cover; /* Cover the area, cropping if needed */
+            border: none; /* No border */
+            display: block; 
+        }
+        /* FIX: Added @media rule for desktop banner height */
+        @media (min-width: 768px) { /* md breakpoint */
+             .title-gif-container img {
+                height: 40vh;
+             }
+        }
+
+
+        .menu-container {
+            position: relative;
+            width: fit-content; /* Shrink to content width */
+            margin-top: 3rem; /* Space below the banner */
+        }
+
+        .menu-selector {
+            position: absolute;
+            left: -40px;
+            top: 8px; /* Initial position */
+            font-size: 1.5rem;
+            color: #fff;
+            transition: top 0.1s ease-in-out;
+            /* Simple pixel art arrow */
+            content: '';
+            width: 0; 
+            height: 0; 
+            border-top: 10px solid transparent;
+            border-bottom: 10px solid transparent;
+            border-left: 15px solid white;
+        }
+
+        .menu-item {
+            /* font-size: 1.5rem; */ /* Replaced with Tailwind */
+            color: #b0b0b0; /* NES Gray */
+            padding: 8px 0;
+            cursor: pointer;
+            transition: color 0.1s;
+            position: relative; /* Needed for positioning particles */
+        }
+        .menu-item:hover, .menu-item.selected {
+            color: #fff;
+        }
+
+
+        /* Projects & Art Page (NES Classic Style) */
+        .nes-ui-container {
+            background-color: #4a4a62;
+            border-top: 4px solid #222;
+            border-bottom: 4px solid #222;
+            padding: 3rem 0; /* Made padding larger */
+            width: 100%;
+            overflow-x: scroll; /* Changed from hidden */
+        }
+        
+        /* Hide scrollbar */
+        .nes-ui-container::-webkit-scrollbar {
+            display: none; /* for Chrome, Safari, and Opera */
+        }
+        .nes-ui-container {
+            -ms-overflow-style: none;  /* for IE and Edge */
+            scrollbar-width: none;  /* for Firefox */
+        }
+
+        /* Infinite Scroll Animation - REMOVED */
+
+        .scroll-track {
+            display: flex;
+            padding-left: 25px; /* Add padding to center first item */
+            padding-right: 25px; /* Add padding for last item */
+            width: max-content; /* Changed from fixed width */
+        }
+        
+        /* Removed hover pause state */
+
+        /* Updated project-box selector to also apply to <a> tags */
+        .project-box, a.project-box { 
+            width: 90vw; /* Mobile width */
+            max-width: 450px; /* Max width */
+            height: 500px; /* Adjusted height */
+            background-color: #fff;
+            border: 5px solid #b0b0b0;
+            padding: 15px; /* Increased padding */
+            margin: 0 15px; /* Mobile margin */
+            /* md:margin: 0 30px; */ /* REMOVED - Handled by @media rule */
+            flex-shrink: 0;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex; /* Use flexbox for content inside */
+            flex-direction: column; /* Stack image and text */
+            color: inherit; /* Ensure link color doesn't override */
+            text-decoration: none; /* Remove underline from links */
+        }
+        @media (min-width: 640px) { /* sm breakpoint */
+             .project-box, a.project-box {
+                 width: 450px; /* Revert to fixed width on larger screens */
+                 margin: 0 30px; /* FIX: Added desktop margin here */
+             }
+        }
+        .project-box:hover, a.project-box:hover {
+            border-color: #00a0e8; /* Blue highlight from screenshot */
+            transform: scale(1.05);
+        }
+
+        .project-box-image {
+            width: 100%;
+            height: 75%; /* Adjusted image height */
+            object-fit: cover;
+            background-color: #222;
+            margin-bottom: 15px; /* Increased spacing */
+            image-rendering: pixelated;
+        }
+
+        .project-box-text-content {
+             flex-grow: 1; /* Allow text content to take remaining space */
+             display: flex;
+             flex-direction: column;
+             justify-content: space-between; /* Push footer down */
+        }
+
+
+        .project-box-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #222;
+            /* font-size: 1.25rem; */ /* Replaced with Tailwind */
+            margin-top: auto; /* Push footer to bottom */
+        }
+         /* Added description style */
+        .project-box-desc {
+            font-size: 0.75rem; /* text-xs */
+            color: #555; /* Darker gray */
+            margin-top: 0.5rem; /* Space above description */
+            line-height: 1.4; /* Adjust line height */
+        }
+
+
+        .project-box-icon {
+            font-size: 0.8rem;
+            border: 2px solid #222;
+            padding: 4px;
+        }
+
+        /* Project Detail & Other Pages */
+        .nes-button {
+            display: inline-block;
+            background-color: #c04040; /* NES Red */
+            border: 3px solid #222;
+            padding: 1rem 1.5rem;
+            margin-top: 20px;
+            text-transform: uppercase;
+            transition: all 0.2s;
+            box-shadow: 4px 4px #222;
+            cursor: pointer;
+            font-family: 'Press Start 2P', cursive;
+            color: #fff;
+            text-shadow: 2px 2px #222;
+        }
+        .nes-button:hover {
+            background-color: #e05050;
+        }
+        .nes-button:active {
+            transform: translate(2px, 2px);
+            box-shadow: 2px 2px #222;
+        }
+
+        .nes-text-box {
+            background-color: #b0b0b0;
+            border: 4px solid #222;
+            padding: 1.5rem;
+            color: #222;
+            text-shadow: none;
+        }
+        .nes-text-box h3, .nes-text-box h4 {
+            color: #222;
+            text-shadow: none;
+        }
+        /* Increased font size for content and line height */
+        .nes-text-box p, .nes-text-box li {
+            color: #333;
+            text-shadow: none;
+            font-size: 0.875rem; /* Equivalent to text-sm */
+            line-height: 1.75; /* Adjusted line height for readability, using Tailwind's leading-relaxed */
+        }
+         /* Keep button text size smaller */
+        .nes-button.text-xs {
+             font-size: 0.75rem;
+        }
+
+        /* GDD Specific Spacing */
+         .gdd-section {
+             margin-bottom: 1.5rem; /* mb-6 */
+         }
+        .gdd-section h4 {
+            margin-bottom: 0.75rem; /* mb-3 */
+        }
+
+
+        /* NEW: Art Detail Page Styles */
+        .art-gallery-grid {
+            /* This is now used by art detail galleries */
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); /* 2 columns on small screens */
+            gap: 1rem; /* Adjust spacing */
+        }
+
+        @media (min-width: 768px) { /* Medium screens and up */
+            .art-gallery-grid {
+                grid-template-columns: repeat(3, 1fr); /* 3 columns */
+            }
+        }
+        
+        .art-thumbnail {
+            aspect-ratio: 16 / 9; /* For 1920x1080 images */
+            background-color: transparent; /* Changed from NES Gray */
+            border: none; /* REMOVED border */
+            overflow: hidden;
+            cursor: pointer; /* RE-ADDED cursor */
+            transition: transform 0.2s ease-in-out; /* RE-ADDED transition */
+        }
+        .art-thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+         .art-thumbnail:hover {
+            transform: scale(1.05); /* RE-ADDED hover */
+        }
+        
+        /* NEW: Project Slide Gallery Style */
+        .project-slide-gallery {
+             max-width: 4xl; /* 896px */
+             margin-left: auto;
+             margin-right: auto;
+             display: flex;
+             flex-direction: column;
+             gap: 1rem; /* space-y-4 */
+        }
+        /* This class is for the *images* inside the project/art galleries */
+        .project-slide {
+            aspect-ratio: 16 / 9; /* 1920x1080 */
+            border: none;
+            background-color: transparent;
+            overflow: hidden;
+            /* cursor: pointer; */ /* REMOVED */
+            /* transition: transform 0.2s ease-in-out; */ /* REMOVED */
+        }
+        .project-slide img {
+             width: 100%;
+             height: 100%;
+             object-fit: cover;
+             display: block;
+        }
+         /*.project-slide:hover {
+             /* No hover effect for non-clickable slides */
+         /*}
+
+
+        /* NEW: Zoom Modal Styles - RE-ADDED */
+        .zoom-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.85); /* Dark overlay */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+        }
+        .zoom-modal.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+        .zoom-modal img {
+            max-width: 95vw;  /* Almost full page width */
+            max-height: 95vh; /* Almost full page height */
+            object-fit: contain;
+            border: 5px solid #fff;
+            image-rendering: pixelated; /* Keep pixel art crisp */
+        }
+
+        /* NEW: Pixel Burst Effect */
+        .pixel-particle {
+            position: absolute;
+            width: 4px; /* Size of each pixel */
+            height: 4px;
+            background-color: #fff; /* Color of particles (matches text) */
+            border-radius: 50%; /* Optional: round particles */
+            pointer-events: none; /* Particles should not block clicks */
+            opacity: 1;
+            transition: transform 0.6s cubic-bezier(0.1, 0.7, 0.3, 1), opacity 0.6s ease-out; /* Smooth animation */
+        }
+
+        /* NEW: Contact Form Styles */
+        .nes-input, .nes-textarea {
+            background-color: #fff;
+            border: 4px solid #222;
+            padding: 0.75rem;
+            color: #222;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.875rem; /* text-sm */
+            width: 100%;
+            margin-bottom: 1rem;
+            box-shadow: 4px 4px #222;
+             image-rendering: pixelated; /* Ensure pixel font renders correctly */
+        }
+        .nes-input:focus, .nes-textarea:focus {
+             outline: none;
+             border-color: #c04040; /* Red border on focus */
+        }
+        .nes-label {
+             display: block;
+             margin-bottom: 0.5rem;
+             color: #222;
+             text-shadow: none;
+             font-size: 0.875rem;
+        }
+         /* Style the submit button */
+        #contact-form button[type="submit"] {
+            margin-top: 1rem; /* Adjust top margin if needed */
+        }
+        
+         /* Notification Box */
+        #form-notification {
+            display: none; /* Hidden by default */
+            margin-top: 1.5rem;
+        }
+
+    </style>
+</head>
+<body class="antialiased">
+    
+    <div>
+        
+
+<header class="fixed top-0 left-0 right-0 z-50">
+            <nav class="container mx-auto flex justify-between items-center">
+                <a href="#" data-target="home-view" class="header-title cursor-pointer text-xl sm:text-2xl">YOUR LOGO</a>
+                <div></div>
+            </nav>
+        </header>
+
+        
+
+<nav class="nav-top">
+            <div class="top-nav-icons-container gap-4 sm:gap-10">
+                <div class="top-nav-icon" data-target="home-view">
+                    <span class="tooltip">Home</span>
+                </div>
+                <div class="top-nav-icon" data-target="projects-view">
+                    <span class="tooltip">Projects</span>
+                </div>
+                <div class="top-nav-icon" data-target="art-view">
+                    <span class="tooltip">Art</span>
+                </div>
+                <div class="top-nav-icon" data-target="contact-view">
+                    <span class="tooltip">Contact</span>
+                </div>
+            </div>
+        </nav>
+
+        
+
+<section id="home-view" class="page-view min-h-screen flex flex-col justify-center items-center text-center p-4">
+            
+            
+
+<div id="home-view-content">
+                
+
+<div class="title-gif-container">
+                    <img src="https://placehold.co/1920x1080/000/fff?text=Your+Pixel+Art+Banner+GIF" alt="Portfolio Title GIF" class="w-full h-[30vh] md:h-[40vh] object-cover border-none block">
+                </div>
+
+                
+
+<div class="menu-container">
+                    <div class="menu-selector"></div>
+                    <ul class="text-left space-y-2">
+                        <li><a class="menu-item text-xl sm:text-2xl" data-target="projects-view">PROJECTS</a></li>
+                        <li><a class="menu-item text-xl sm:text-2xl" data-target="art-view">ART</a></li>
+                        <li><a class="menu-item text-xl sm:text-2xl" data-target="contact-view">CONTACT</a></li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        
+
+<section id="projects-view" class="page-view hidden pb-12 px-4 min-h-screen flex flex-col justify-between">
+            <div>
+                <h2 class="text-3xl sm:text-4xl font-bold text-center mb-12">PROJECTS & STUDIES</h2>
+                
+                <div class="nes-ui-container">
+                    <div class="scroll-track">
+                        
+
+<div class="project-box" data-target="project-detail-1">
+                            <img src="https://placehold.co/300x320/222/fff?text=Project+1+Cover" alt="Project 1" class="project-box-image">
+                             <div class="project-box-text-content">
+                                <p class="project-box-desc">Short description about Project 1...</p>
+                                <div class="project-box-footer text-lg sm:text-xl">
+                                    <span>Project 1 Title</span>
+                                    <span class="project-box-icon">1P</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+
+<div class="project-box" data-target="project-detail-2">
+                            <img src="https://placehold.co/300x320/222/fff?text=Project+2+Cover" alt="Project 2" class="project-box-image">
+                            <div class="project-box-text-content">
+                                <p class="project-box-desc">Short description about Project 2...</p>
+                                <div class="project-box-footer text-lg sm:text-xl">
+                                    <span>Project 2 Title</span>
+                                    <span class="project-box-icon">1P</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+
+<div class="project-box" data-target="project-detail-3">
+                            <img src="https://placehold.co/300x320/222/fff?text=Project+3+Cover" alt="Project 3" class="project-box-image">
+                             <div class="project-box-text-content">
+                                <p class="project-box-desc">Short description about Project 3...</p>
+                                <div class="project-box-footer text-lg sm:text-xl">
+                                    <span>Project 3 Title</span>
+                                    <span class="project-box-icon">2P</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+
+<div class="project-box" data-target="project-detail-4">
+                            <img src="https" alt="Project 4" class="project-box-image">
+                             <div class="project-box-text-content">
+                                <p class="project-box-desc">Short description about Project 4...</p>
+                                <div class="project-box-footer text-lg sm:text-xl">
+                                    <span>Project 4 Title</span>
+                                    <span class="project-box-icon">1P</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+
+<div class="project-box" data-target="project-detail-5">
+                            <img src="https" alt="Project 5" class="project-box-image">
+                             <div class="project-box-text-content">
+                                <p class="project-box-desc">Short description about Project 5...</p>
+                                <div class="project-box-footer text-lg sm:text-xl">
+                                    <span>Project 5 Title</span>
+                                    <span class="project-box-icon">1P</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+
+<!-- Study 1 Box - Now a DIV with data-target -->
+                        <div class="project-box" data-target="project-detail-6"> 
+                            <img src="https://placehold.co/300x320/222/fff?text=Study+1+Cover" alt="Study 1" class="project-box-image">
+                             <div class="project-box-text-content">
+                                <p class="project-box-desc">Short description about Study 1...</p>
+                                <div class="project-box-footer text-lg sm:text-xl">
+                                    <span>Study/Decon 1</span>
+                                    <span class="project-box-icon">📄</span> 
+                                </div>
+                            </div>
+                        </div>
+                        
+
+<!-- Study 2 Box - Now a DIV with data-target -->
+                        <div class="project-box" data-target="project-detail-7"> 
+                            <img src="https::/placehold.co/300x320/222/fff?text=Study+2+Cover" alt="Study 2" class="project-box-image">
+                             <div class="project-box-text-content">
+                                <p class="project-box-desc">Short description about Study 2...</p>
+                                <div class="project-box-footer text-lg sm:text-xl">
+                                    <span>Study/Decon 2</span>
+                                    <span class="project-box-icon">📄</span> 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <p class="text-center text-gray-400 text-xs mt-4">SCROLL UP/DOWN ON BOXES TO EXPLORE</p>
+            </div>
+            <div class="text-center mt-auto"><button class="nes-button back-button" data-target="home-view">&lt; BACK</button>
+            </div>
+        </section>
+        
+        
+
+<section id="art-view" class="page-view hidden pb-12 px-4 min-h-screen flex flex-col justify-between">
+            <div>
+                <h2 class="text-3xl sm:text-4xl font-bold text-center mb-12">ART</h2>
+                
+                <div class="nes-ui-container">
+                    <div class="scroll-track">
+                        
+
+<div class="project-box" data-target="art-detail-1">
+                            <img src="https" alt="Art 1" class="project-box-image">
+                             <div class="project-box-text-content">
+                                <p class="project-box-desc">Short description about Art Piece 1...</p>
+                                <div class="project-box-footer text-lg sm:text-xl">
+                                    <span>Art Piece 1</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+
+<div class="project-box" data-target="art-detail-2">
+                            <img src="https" alt="Art 2" class="project-box-image">
+                             <div class="project-box-text-content">
+                                <p class="project-box-desc">Short description about Art Piece 2...</p>
+                                <div class="project-box-footer text-lg sm:text-xl">
+                                    <span>Art Piece 2</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+
+<div class="project-box" data-target="art-detail-3">
+                            <img src="https" alt="Art 3" class="project-box-image">
+                            <div class="project-box-text-content">
+                                <p class="project-box-desc">Short description about Art Piece 3...</p>
+                                <div class="project-box-footer text-lg sm:text-xl">
+                                    <span>Art Piece 3</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+
+<div class="project-box" data-target="art-detail-4">
+                            <img src="https" alt="Art 4" class="project-box-image">
+                             <div class="project-box-text-content">
+                                <p class="project-box-desc">Short description about Art Piece 4...</p>
+                                <div class="project-box-footer text-lg sm:text-xl">
+                                    <span>Art Piece 4</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+
+<div class="project-box" data-target="art-detail-5">
+                            <img src="https" alt="Art 5" class="project-box-image">
+                             <div class="project-box-text-content">
+                                <p class="project-box-desc">Short description about Art Piece 5...</p>
+                                <div class="project-box-footer text-lg sm:text-xl">
+                                    <span>Art Piece 5</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+
+<div class="project-box" data-target="art-detail-6">
+                            <img src="https" alt="Art 6" class="project-box-image">
+                            <div class="project-box-text-content">
+                                <p class="project-box-desc">Short description about Art Piece 6...</p>
+                                <div class="project-box-footer text-lg sm:text-xl">
+                                    <span>Art Piece 6</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <p class="text-center text-gray-400 text-xs mt-4">SCROLL UP/DOWN ON BOXES TO EXPLORE</p>
+            </div>
+            <div class="text-center mt-auto">
+                <button class="nes-button back-button" data-target="home-view">&lt; BACK</button>
+            </div>
+        </section>
+
+        
+
+<section id="contact-view" class="page-view hidden px-4 pb-12">
+            <div>
+                <div class="container mx-auto text-center max-w-2xl">
+                    <h2 class="text-3xl sm:text-4xl font-bold mb-8">CONTACT</h2>
+                    
+                    
+
+<div class="nes-text-box text-left leading-relaxed space-y-4 mb-8">
+                        <p>Have a question or want to work together?</p>
+                        <p>EMAIL: your.email@example.com</p>
+                        <p>LINKEDIN: /in/your-profile</p>
+                        <!-- ADDED RESUME BUTTON HERE -->
+                        <a href="#" target="_blank" class="nes-button block text-center !p-3 !m-0 text-xs">View Resume (PDF)</a>
+                    </div>
+
+                    
+
+<form id="contact-form" class="nes-text-box text-left">
+                        <div class="mb-4">
+                            <label for="name" class="nes-label">Your Name:</label>
+                            <input type="text" id="name" name="name" required class="nes-input">
+                        </div>
+                         <div class="mb-4">
+                            <label for="email" class="nes-label">Your Email:</label>
+                            <input type="email" id="email" name="email" required class="nes-input">
+                        </div>
+                         <div class="mb-4">
+                            <label for="message" class="nes-label">Message:</label>
+                            <textarea id="message" name="message" rows="5" required class="nes-textarea"></textarea>
+                        </div>
+                        <div class="text-center">
+                             <button type="submit" class="nes-button">Send Message</button>
+                        </div>
+                    </form>
+                    
+                    
+
+<div id="form-notification" class="nes-text-box text-center text-green-700">
+                         Message Sent! Thanks for reaching out.
+                    </div>
+
+                </div>
+            </div>
+            <div class="text-center mt-auto">
+                <button class="nes-button back-button" data-target="home-view">&lt; BACK</button>
+            </div>
+        </section>
+
+
+        
+
+<section id="project-detail-1" class="page-view hidden px-4 pb-12 min-h-screen">
+             <div><div class="container mx-auto"><button class="nes-button back-button mb-8" data-target="projects-view">&lt; Back</button><h2 class="text-2xl sm:text-3xl font-bold text-center mb-8">Project 1 Detail</h2>
+                 <div class="mb-12 aspect-w-16 aspect-h-9 bg-black rounded-lg overflow-hidden border-4 border-b-8 border-gray-400"><iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&mute=1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="w-full h-full"></iframe></div>
+                 <div class="grid md:grid-cols-3 gap-8 text-sm"><div class="md:col-span-2 nes-text-box"><h3 class="text-lg font-bold mb-4">About The Game</h3><p class="mb-4 leading-relaxed">...</p><p class="leading-relaxed">...</p></div><div class="nes-text-box"><h3 class="text-lg font-bold mb-4">Links</h3><div class="space-y-4">
+                    <a href="#" target="_blank" class="nes-button block text-center !p-3 !m-0 text-xs">Play on Itch.io</a>
+                    <a href="#" target="_blank" class="nes-button block text-center !p-3 !m-0 text-xs">Gameplay Video</a>
+                    <!-- Removed GDD Link -->
+                 </div></div></div>
+                 
+                 <!-- NEW: Project Slides Gallery -->
+                 <div class="mt-16 container mx-auto">
+                    <h3 class="text-xl sm:text-2xl font-bold mb-6 text-center">Project Gallery</h3>
+                     <div class="project-slide-gallery max-w-4xl mx-auto space-y-4">
+                        <div class="art-thumbnail project-slide"><img src="https://placehold.co/1920x1080/b0b0b0/222?text=Slide+1" alt="Project Slide 1"></div>
+                        <div class="art-thumbnail project-slide"><img src="https://placehold.co/1920x1080/b0b0b0/222?text=Slide+2" alt="Project Slide 2"></div>
+                        <div class="art-thumbnail project-slide"><img src="https://placehold.co/1920x1080/b0b0b0/222?text=Slide+3" alt="Project Slide 3"></div>
+                        <div class="art-thumbnail project-slide"><img src="https://placehold.co/1920x1080/b0b0b0/222?text=Slide+4" alt="Project Slide 4"></div>
+                        <div class="art-thumbnail project-slide"><img src="https://placehold.co/1920x1080/b0b0b0/222?text=Slide+5" alt="Project Slide 5"></div>
+                        <div class="art-thumbnail project-slide"><img src="https://placehold.co/1920x1080/b0b0b0/222?text=Slide+6" alt="Project Slide 6"></div>
+                        <div class="art-thumbnail project-slide"><img src="https://placehold.co/1920x1080/b0b0b0/222?text=Slide+7" alt="Project Slide 7"></div>
+                        <div class="art-thumbnail project-slide"><img src="https://placehold.co/1920x1080/b0b0b0/222?text=Slide+8" alt="Project Slide 8"></div>
+                        <div class="art-thumbnail project-slide"><img src="https://placehold.co/1920x1080/b0b0b0/222?text=Slide+9" alt="Project Slide 9"></div>
+                        <div class="art-thumbnail project-slide"><img src="https://placehold.co/1920x1080/b0b0b0/222?text=Slide+10" alt="Project Slide 10"></div>
+                        <div class="art-thumbnail project-slide"><img src="https://placehold.co/1920x1080/b0b0b0/222?text=Slide+11" alt="Project Slide 11"></div>
+                        <div class="art-thumbnail project-slide"><img src="https.placehold.co/1920x1080/b0b0b0/222?text=Slide+12" alt="Project Slide 12"></div>
+                    </div>
+                 </div>
+             </div></div><div class="text-center mt-auto"></div>
+        </section>
+        <section id="project-detail-2" class="page-view hidden px-4 pb-12 min-h-screen">
+             <div><div class="container mx-auto"><button class="nes-button back-button mb-8" data-target="projects-view">&lt; Back</button><h2 class="text-2xl sm:text-3xl font-bold text-center mb-8">Project 2 Detail</h2>
+                 <div class="mb-12 aspect-w-16 aspect-h-9 bg-black rounded-lg overflow-hidden border-4 border-b-8 border-gray-400"><iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&mute=1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="w-full h-full"></iframe></div>
+                 <div class="grid md:grid-cols-3 gap-8 text-sm"><div class="md:col-span-2 nes-text-box"><h3 class="text-lg font-bold mb-4">About The Game</h3><p class="mb-4 leading-relaxed">...</p><p class="leading-relaxed">...</p></div><div class="nes-text-box"><h3 class="text-lg font-bold mb-4">Links</h3><div class="space-y-4">
+                    <a href="#" target="_blank" class="nes-button block text-center !p-3 !m-0 text-xs">Play on Itch.io</a>
+                    <a href="#" target="_blank" class="nes-button block text-center !p-3 !m-0 text-xs">Gameplay Video</a>
+                    <!-- Removed GDD Link -->
+                </div></div></div>
+                 
+                 <!-- NEW: Project Slides Gallery -->
+                 <div class="mt-16 container mx-auto">
+                    <h3 class="text-xl sm:text-2xl font-bold mb-6 text-center">Project Gallery</h3>
+                     <div class="project-slide-gallery max-w-4xl mx-auto space-y-4">
+                        <div class="art-thumbnail project-slide"><img src="https://placehold.co/1920x1080/b0b0b0/222?text=Slide+1" alt="Project Slide 1"></div>
+                        <div class="art-thumbnail project-slide"><img src="https://placehold.co/1920x1080/b0b0b0/222?text=Slide+2" alt="Project Slide 2"></div>
+                        <div class="art-thumbnail project-slide"><img src="https://placehold.co/1920x1080/b0b0b0/222?text=Slide+3" alt="Project Slide 3"></div>
+                        <div class="art-thumbnail project-slide"><img src="https://placehold.co/1920x1080/b0b0b0/222?text=Slide+4" alt="Project Slide 4"></div>
+                        <div class="art-thumbnail project-slide"><img src="https::/placehold.co/1920x1080/b0b0b0/222?text=Slide+5" alt="Project Slide 5"></div>
+                        <div class="art-thumbnail project-slide"><img src="https://placehold.co/1920x1080/b0b0b0/222?text=Slide+6" alt="Project Slide 6"></div>
+                        <div class="art-thumbnail project-slide"><img src="https://placehold.co/1920x1080/b0b0b0/222?text=Slide+7" alt="Project Slide 7"></div>
+                        <div class="art-thumbnail project-slide"><img src="https://placehold.co/1920x1080/b0b0b0/222?text=Slide+8" alt="Project Slide 8"></div>
+                        <div class="art-thumbnail project-slide"><img src="https://placehold.co/1920x1080/b0b0b0/222?text=Slide+9" alt="Project Slide 9"></div>
+                        <div class="art-thumbnail project-slide"><img src="https://placehold.co/1920x1080/b0b0b0/222?text=Slide+10" alt="Project Slide 10"></div>
+                        <div class="art-thumbnail project-slide"><img src="https://placehold.co/1920x1080/b0b0b0/222?text=Slide+11" alt="Project Slide 11"></div>
+                        <div class="art-thumbnail project-slide"><img src="https::/placehold.co/1920x1080/b0b0b0/222?text=Slide+12" alt="Project Slide 12"></div>
+                    </div>
+                 </div>
+             </div></div><div class="text-center mt-auto"></div>
+        </section>
+         <section id="project-detail-3" class="page-view hidden px-4 pb-12 min-h-screen">
+             <div><div class="container mx-auto"><button class="nes-button back-button mb-8" data-target="projects-view">&lt; Back</button><h2 class="text-2xl sm:text-3xl font-bold text-center mb-8">Project 3 Detail</h2>
+                 <div class="mb-12 aspect-w-16 aspect-h-9 bg-black rounded-lg overflow-hidden border-4 border-b-8 border-gray-400"><iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&mute=1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="w-full h-full"></iframe></div>
+                 <div class="grid md:grid-cols-3 gap-8 text-sm"><div class="md:col-span-2 nes-text-box"><h3 class="text-lg font-bold mb-4">About The Game</h3><p class="mb-4 leading-relaxed">...</p><p class="leading-relaxed">...</p></div><div class="nes-text-box"><h3 class="text-lg font-bold mb-4">Links</h3><div class="space-y-4">
+                    <a href="#" target="_blank" class="nes-button block text-center !p-3 !m-0 text-xs">Play on Itch.io</a>
+                    <a href="#" target="_blank" class="nes-button block text-center !p-3 !m-0 text-xs">Gameplay Video</a>
+                    <!-- Removed GDD Link -->
+                </div></div></div>
+                 
+                <!-- NEW: Project Slides Gallery -->
+                 <div class="mt-16 container mx-auto">
+                    <h3 class="text-xl sm:text-2xl font-bold mb-6 text-center">Project Gallery</h3>
+                     <div class="project-slide-gallery max-w-4xl mx-auto space-y-4">
+                        <div class="art-thumbnail project-slide"><img src="https://placehold.co/1920x1080/b0b0b0/222?text=Slide+1" alt="Project Slide 1"></div>
+                        <div class="art-thumbnail project-slide"><img src="https://placehold.co/1920x1080/b0b0b0/222?text=Slide+2" alt="Project Slide 2"></div>
+                        <div class="art-thumbnail project-slide"><img src="https://placehold.co/1920x1080/b0b0b0/222?text=Slide+3" alt="Project Slide 3"></div>
+                        <div class="art-thumbnail project-slide"><img src="httpsS://placehold.co/1920x1080/b0b0b0/222?text=Slide+4" alt="Project Slide 4"></div>
+                        <div class="art-thumbnail project-slide"><img src="https://placehold.co/1920x1080/b0b0b0/222?text=Slide+5" alt="Project Slide 5"></div>
+                        <div class="art-thumbnail project-slide"><img src="https" alt="Project Slide 6"></div>
+                        <div class="art-thumbnail project-slide"><img src="https" alt="Project Slide 7"></div>
+                        <div class="art-thumbnail project-slide"><img src="https" alt="Project Slide 8"></div>
+                        <div class="art-thumbnail project-slide"><img src="https" alt="Project Slide 9"></div>
+                        <div class="art-thumbnail project-slide"><img src="https" alt="Project Slide 10"></div>
+                        <div class="art-thumbnail project-slide"><img src="https." alt="Project Slide 11"></div>
+                        <div class="art-thumbnail project-slide"><img src="https" alt="Project Slide 12"></div>
+                    </div>
+                 </div>
+             </div></div><div class="text-center mt-auto"></div>
+        </section>
+         <section id="project-detail-4" class="page-view hidden px-4 pb-12 min-h-screen">
+             <div><div class="container mx-auto"><button class="nes-button back-button mb-8" data-target="projects-view">&lt; Back</button><h2 class="text-2xl sm:text-3xl font-bold text-center mb-8">Project 4 Detail</h2>
+                 <div class="mb-12 aspect-w-16 aspect-h-9 bg-black rounded-lg overflow-hidden border-4 border-b-8 border-gray-400"><iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&mute=1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="w-full h-full"></iframe></div>
+                 <div class="grid md:grid-cols-3 gap-8 text-sm"><div class="md:col-span-2 nes-text-box"><h3 class="text-lg font-bold mb-4">About The Game</h3><p class="mb-4 leading-relaxed">...</p><p class="leading-relaxed">...</p></div><div class="nes-text-box"><h3 class="text-lg font-bold mb-4">Links</h3><div class="space-y-4">
+                    <a href="#" target="_blank" class="nes-button block text-center !p-3 !m-0 text-xs">Play on Itch.io</a>
+                    <a href="#" target="_blank" class="nes-button block text-center !p-3 !m-0 text-xs">Gameplay Video</a>
+                    <!-- Removed GDD Link -->
+                </div></div></div>
+                 
+                 <!-- NEW: Project Slides Gallery -->
+                 <div class="mt-16 container mx-auto">
+                    <h3 class="text-xl sm:text-2xl font-bold mb-6 text-center">Project Gallery</h3>
+                     <div class="project-slide-gallery max-w-4xl mx-auto space-y-4">
+                        <div class="art-thumbnail project-slide"><img src="https" alt="Project Slide 1"></div>
+                        <div class="art-thumbnail project-slide"><img src="https" alt="Project Slide 2"></div>
+                        <div class="art-thumbnail project-slide"><img src="https" alt="Project Slide 3"></div>
+                        <div class="art-thumbnail project-slide"><img src="https" alt="Project Slide 4"></div>
+                        <div class="art-thumbnail project-slide"><img src="https" alt="Project Slide 5"></div>
+                        <div class="art-thumbnail project-slide"><img src="https" alt="Project Slide 6"></div>
+                        <div class="art-thumbnail project-slide"><img src="https" alt="Project Slide 7"></div>
+                        <div class="art-thumbnail project-slide"><img src="https" alt="Project Slide 8"></div>
+                        <div class="art-thumbnail project-slide"><img src="https" alt="Project Slide 9"></div>
+                        <div class="art-thumbnail project-slide"><img src="https" alt="Project Slide 10"></div>
+                        <div class="art-thumbnail project-slide"><img src="https" alt="Project Slide 11"></div>
+                        <div class="art-thumbnail project-slide"><img src="https" alt="Project Slide 12"></div>
+                    </div>
+                 </div>
+             </div></div><div class="text-center mt-auto"></div>
+        </section>
+         <section id="project-detail-5" class="page-view hidden px-4 pb-12 min-h-screen">
+             <div><div class="container mx-auto"><button class="nes-button back-button mb-8" data-target="projects-view">&lt; Back</button><h2 class="text-2xl sm:text-3xl font-bold text-center mb-8">Project 5 Detail</h2>
+                 <div class="mb-12 aspect-w-16 aspect-h-9 bg-black rounded-lg overflow-hidden border-4 border-b-8 border-gray-400"><iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&mute=1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="w-full h-full"></iframe></div>
+                 <div class="grid md:grid-cols-3 gap-8 text-sm"><div class="md:col-span-2 nes-text-box"><h3 class="text-lg font-bold mb-4">About The Game</h3><p class="mb-4 leading-relaxed">...</p><p class="leading-relaxed">...</p></div><div class="nes-text-box"><h3 class="text-lg font-bold mb-4">Links</h3><div class="space-y-4">
+                    <a href="#" target="_blank" class="nes-button block text-center !p-3 !m-0 text-xs">Play on Itch.io</a>
+                    <a href="#" target="_blank" class="nes-button block text-center !p-3 !m-0 text-xs">Gameplay Video</a>
+                    <!-- Removed GDD Link -->
+                </div></div></div>
+                 
+                 <!-- NEW: Project Slides Gallery -->
+                 <div class="mt-16 container mx-auto">
+                    <h3 class="text-xl sm:text-2xl font-bold mb-6 text-center">Project Gallery</h3>
+                     <div class="project-slide-gallery max-w-4xl mx-auto space-y-4">
+                        <div class="art-thumbnail project-slide"><img src="https" alt="Project Slide 1"></div>
+                        <div class="art-thumbnail project-slide"><img src="https" alt="Project Slide 2"></div>
+                        <div class="art-thumbnail project-slide"><img src="https" alt="Project Slide 3"></div>
+                        <div class="art-thumbnail project-slide"><img src="https" alt="Project Slide 4"></div>
+                        <div class="art-thumbnail project-slide"><img src="https" alt="Project Slide 5"></div>
+                        <div class="art-thumbnail project-slide"><img src="https" alt="Project Slide 6"></div>
+                        <div class="art-thumbnail project-slide"><img src="https" alt="Project Slide 7"></div>
+                        <div class="art-thumbnail project-slide"><img src="https" alt="Project Slide 8"></div>
+                        <div class="art-thumbnail project-slide"><img src="https" alt="Project Slide 9"></div>
+                        <div class="art-thumbnail project-slide"><img src="https" alt="Project Slide 10"></div>
+                        <div class="art-thumbnail project-slide"><img src="https" alt="Project Slide 11"></div>
+                        <div class="art-thumbnail project-slide"><img src="https" alt="Project Slide 12"></div>
+                    </div>
+                 </div>
+             </div></div><div class="text-center mt-auto"></div>
+        </section>
+        
+<!-- UPDATED Study Detail Page 6 -->
+<section id="project-detail-6" class="page-view hidden px-4 pb-12 min-h-screen">
+     <div>
+        <div class="container mx-auto">
+            <button class="nes-button back-button mb-8" data-target="projects-view">&lt; Back to Projects</button>
+            <h2 class="text-2xl sm:text-3xl font-bold text-center mb-8">Study 1 Detail</h2>
+            <!-- Container for the 12 slides -->
+            <div class="mt-16 container mx-auto">
+                <h3 class="text-xl sm:text-2xl font-bold mb-6 text-center">Study Gallery</h3>
+                 <div class="project-slide-gallery max-w-4xl mx-auto space-y-4">
+                    <div class="project-slide"><img src="https://placehold.co/1920x1080/b0b0b0/222?text=Slide+1" alt="Study Slide 1"></div>
+                    <div class="project-slide"><img src="https://placehold.co/1920x1080/b0b0b0/222?text=Slide+2" alt="Study Slide 2"></div>
+                    <div class="project-slide"><img src="https://placehold.co/1920x1080/b0b0b0/222?text=Slide+3" alt="Study Slide 3"></div>
+                    <div class="project-slide"><img src="https://placehold.co/1920x1080/b0b0b0/222?text=Slide+4" alt="Study Slide 4"></div>
+                    <div class="project-slide"><img src="https://placehold.co/1920x1080/b0b0b0/222?text=Slide+5" alt="Study Slide 5"></div>
+                    <div class="project-slide"><img src="https://placehold.co/1920x1080/b0b0b0/222?text=Slide+6" alt="Study Slide 6"></div>
+                    <div class="project-slide"><img src="https://placehold.co/1920x1080/b0b0b0/222?text=Slide+7" alt="Study Slide 7"></div>
+                    <div class="project-slide"><img src="https://placehold.co/1920x1080/b0b0b0/222?text=Slide+8" alt="Study Slide 8"></div>
+                    <div class="project-slide"><img src="https://placehold.co/1920x1080/b0b0b0/222?text=Slide+9" alt="Study Slide 9"></div>
+                    <div class="project-slide"><img src="https://placehold.co/1920x1080/b0b0b0/222?text=Slide+10" alt="Study Slide 10"></div>
+                    <div class="project-slide"><img src="https://placehold.co/1920x1080/b0b0b0/222?text=Slide+11" alt="Study Slide 11"></div>
+                    <div class="project-slide"><img src="https://placehold.co/1920x1080/b0b0b0/222?text=Slide+12" alt="Study Slide 12"></div>
+                </div>
+             </div>
+        </div>
+     </div>
+     <div class="text-center mt-auto"></div>
+</section>
+<!-- UPDATED Study Detail Page 7 -->
+ <section id="project-detail-7" class="page-view hidden px-4 pb-12 min-h-screen">
+     <div>
+         <div class="container mx-auto">
+            <button class="nes-button back-button mb-8" data-target="projects-view">&lt; Back to Projects</button>
+            <h2 class="text-2xl sm:text-3xl font-bold text-center mb-8">Study 2 Detail</h2>
+            <!-- Container for the 12 slides -->
+            <div class="mt-16 container mx-auto">
+                <h3 class="text-xl sm:text-2xl font-bold mb-6 text-center">Study Gallery</h3>
+                 <div class="project-slide-gallery max-w-4xl mx-auto space-y-4">
+                    <div class="project-slide"><img src="https://placehold.co/1920x1080/b0b0b0/222?text=Slide+1" alt="Study Slide 1"></div>
+                    <div class="project-slide"><img src="https://placehold.co/1920x1080/b0b0b0/222?text=Slide+2" alt="Study Slide 2"></div>
+                    <div class="project-slide"><img src="https://placehold.co/1920x1080/b0b0b0/222?text=Slide+3" alt="Study Slide 3"></div>
+                    <div class="project-slide"><img src="https://placehold.co/1920x1080/b0b0b0/222?text=Slide+4" alt="Study Slide 4"></div>
+                    <div class="project-slide"><img src="httpsI://placehold.co/1920x1080/b0b0b0/222?text=Slide+5" alt="Study Slide 5"></div>
+                    <div class="project-slide"><img src="https://placehold.co/1920x1080/b0b0b0/222?text=Slide+6" alt="Study Slide 6"></div>
+                    <div class="project-slide"><img src="https://placehold.co/1920x1080/b0b0b0/222?text=Slide+7" alt="Study Slide 7"></div>
+                    <div class="project-slide"><img src="https://placehold.co/1920x1080/b0b0b0/222?text=Slide+8" alt="Study Slide 8"></div>
+                    <div class="project-slide"><img src="https://placehold.co/1920x1080/b0b0b0/222?text=Slide+9" alt="Study Slide 9"></div>
+                    <div class="project-slide"><img src="https://placehold.co/1920x1080/b0b0b0/222?text=Slide+10" alt="Study Slide 10"></div>
+                    <div class="project-slide"><img src="https://placehold.co/1920x1080/b0b0b0/222?text=Slide+11" alt="Study Slide 11"></div>
+                    <div class="project-slide"><img src="https://placehold.co/1920x1080/b0b0b0/222?text=Slide+12" alt="Study Slide 12"></div>
+                </div>
+             </div>
+         </div>
+     </div>
+     <div class="text-center mt-auto"></div>
+</section>
+
+
+        
+
+<section id="art-detail-1" class="page-view hidden px-4 pb-12">
+             <div> <div class="container mx-auto"> <button class="nes-button back-button mb-8" data-target="art-view">&lt; Back</button> <h2 class="text-2xl sm:text-3xl font-bold text-center mb-8">Art Piece 1 Title</h2> <div class="project-slide-gallery max-w-4xl mx-auto space-y-4"> <div class="art-thumbnail project-slide"><img src="https" alt="Art Image 1"></div> <div class="art-thumbnail project-slide"><img src="https" alt="Art Image 2"></div> <div class="art-thumbnail project-slide"><img src="https" alt="Art Image 3"></div> <div class="art-thumbnail project-slide"><img src="https" alt="Art Image 4"></div> <div class="art-thumbnail project-slide"><img src="https" alt="Art Image 5"></div> <div class="art-thumbnail project-slide"><img src="https" alt="Art Image 6"></div> </div> </div> </div> <div class="text-center mt-auto"></div> 
+        </section>
+        <section id="art-detail-2" class="page-view hidden px-4 pb-12">
+            <div> <div class="container mx-auto"> <button class="nes-button back-button mb-8" data-target="art-view">&lt; Back</button> <h2 class="text-2xl sm:text-3xl font-bold text-center mb-8">Art Piece 2 Title</h2> <div class="project-slide-gallery max-w-4xl mx-auto space-y-4"> <div class="art-thumbnail project-slide"><img src="https" alt="Art Image 1"></div> <div class="art-thumbnail project-slide"><img src="https" alt="Art Image 2"></div> <div class="art-thumbnail project-slide"><img src="https" alt="Art Image 3"></div> <div class="art-thumbnail project-slide"><img src="https" alt="Art Image 4"></div> <div class="art-thumbnail project-slide"><img src="https" alt="Art Image 5"></div> <div class="art-thumbnail project-slide"><img src="https" alt="Art Image 6"></div> </div> </div> </div> <div class="text-center mt-auto"></div>
+        </section>
+        <section id="art-detail-3" class="page-view hidden px-4 pb-12">
+            <div> <div class="container mx-auto"> <button classF="nes-button back-button mb-8" data-target="art-view">&lt; Back</button> <h2 class="text-2xl sm:text-3xl font-bold text-center mb-8">Art Piece 3 Title</h2> <div class="project-slide-gallery max-w-4xl mx-auto space-y-4"> <div class="art-thumbnail project-slide"><img src="https" alt="Art Image 1"></div> <div class="art-thumbnail project-slide"><img src="https" alt="Art Image 2"></div> <div class="art-thumbnail project-slide"><img src="https" alt="Art Image 3"></div> <div class="art-thumbnail project-slide"><img src="https" alt="Art Image 4"></div> <div class="art-thumbnail project-slide"><img src="https" alt="Art Image 5"></div> <div class="art-thumbnail project-slide"><img src="https" alt="Art Image 6"></div> </div> </div> </div> <div class="text-center mt-auto"></div>
+        </section>
+        <section id="art-detail-4" class="page-view hidden px-4 pb-12">
+            <div> <div class="container mx-auto"> <button class="nes-button back-button mb-8" data-target="art-view">&lt; Back</button> <h2 class="text-2xl sm:text-3xl font-bold text-center mb-8">Art Piece 4 Title</h2> <div class="project-slide-gallery max-w-4xl mx-auto space-y-4"> <div class="art-thumbnail project-slide"><img src="https" alt="Art Image 1"></div> <div class="art-thumbnail project-slide"><img src="https" alt="Art Image 2"></div> <div class="art-thumbnail project-slide"><img src="https" alt="Art Image 3"></div> <div class="art-thumbnail project-slide"><img src="https" alt="Art Image 4"></div> <div class="art-thumbnail project-slide"><img src="https" alt="Art Image 5"></div> <div class="art-thumbnail project-slide"><img src="https" alt="Art Image 6"></div> </div> </div> </div> <div class="text-center mt-auto"></div>
+        </section>
+        <section id="art-detail-5" class="page-view hidden px-4 pb-12">
+            <div> <div class="container mx-auto"> <button class="nes-button back-button mb-8" data-target="art-view">&lt; Back</button> <h2 class="text-2xl sm:text-3xl font-bold text-center mb-8">Art Piece 5 Title</h2> <div class="project-slide-gallery max-w-4xl mx-auto space-y-4"> <div class="art-thumbnail project-slide"><img src="https" alt="Art Image 1"></div> <div class="art-thumbnail project-slide"><img src="https" alt="Art Image 2"></div> <div class="art-thumbnail project-slide"><img src="https" alt="Art Image 3"></div> <div class="art-thumbnail project-slide"><img src="https" alt="Art Image 4"></div> <div class="art-thumbnail project-slide"><img src="https" alt="Art Image 5"></div> <div class="art-thumbnail project-slide"><img src="https" alt="Art Image 6"></div> </div> </div> </div> <div class="text-center mt-auto"></div>
+        </section>
+        <section id="art-detail-6" class="page-view hidden px-4 pb-12">
+            <div> <div class="container mx-auto"> <button class="nes-button back-button mb-8" data-target="art-view">&lt; Back</button> <h2 class="text-2xl sm:text-3xl font-bold text-center mb-8">Art Piece 6 Title</h2> <div class="project-slide-gallery max-w-4xl mx-auto space-y-4"> <div class="art-thumbnail project-slide"><img src="https" alt="Art Image 1"></div> <div class="art-thumbnail project-slide"><img src="https" alt="Art Image 2"></div> <div class="art-thumbnail project-slide"><img src="https" alt="Art Image 3"></div> <div class="art-thumbnail project-slide"><img src="https" alt="Art Image 4"></div> <div class="art-thumbnail project-slide"><img src="https" alt="Art Image 5"></div> <div class="art-thumbnail project-slide"><img src="https" alt="Art Image 6"></div> </div> </div> </div> <div class="text-center mt-auto"></div>
+        </section>
+
+    </div>
+
+    
+<!-- RE-ADDED Zoom Modal Structure -->
+<div id="zoom-modal" class="zoom-modal">
+        <img id="zoomed-image" src="" alt="Zoomed Art">
+    </div>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const body = document.body;
+            const views = document.querySelectorAll('.page-view');
+            // const navLinks = document.querySelectorAll('[data-target]'); // Keep for potential future use
+            const artThumbnails = document.querySelectorAll('.art-thumbnail'); 
+            const zoomModal = document.getElementById('zoom-modal');
+            const zoomedImage = document.getElementById('zoomed-image');
+            // Select home page specific elements if they exist
+            const menuItems = document.querySelectorAll('#home-view .menu-item'); 
+            const menuSelector = document.querySelector('#home-view .menu-selector');
+            const topNavIcons = document.querySelectorAll('.top-nav-icon'); 
+            const contactForm = document.getElementById('contact-form'); // Added contact form reference
+            const formNotification = document.getElementById('form-notification'); // Added notification reference
+
+
+            // --- Sound Effect Setup ---
+            const synth = new Tone.Synth().toDestination();
+            synth.oscillator.type = "square"; 
+            synth.volume.value = -12; 
+            synth.envelope.attack = 0.005;
+            synth.envelope.decay = 0.1;
+            synth.envelope.sustain = 0.05;
+            synth.envelope.release = 0.2;
+            
+            let isSelectSoundReady = true;
+            let isClickSoundReady = true; // FIX: Separate cooldown for click sound
+            let audioContextStarted = false; // Flag to check if Tone.start() has been called
+
+            // Function to ensure audio context is running
+            const ensureAudioContext = async () => {
+                if (audioContextStarted || Tone.context.state === 'running') {
+                    audioContextStarted = true;
+                    return true;
+                }
+                try {
+                    await Tone.start();
+                    audioContextStarted = true;
+                    // console.log("Audio context started");
+                    return true;
+                } catch (e) {
+                    console.error("Error starting Tone.js context:", e);
+                    return false;
+                }
+            };
+            
+            // FIX: Add a one-time listener to start the audio context on the first click
+            const startAudio = async () => {
+                await ensureAudioContext();
+            };
+            document.body.addEventListener('click', startAudio, { once: true });
+            document.body.addEventListener('touchend', startAudio, { once: true });
+
+
+            const playClickSound = async () => {
+                // FIX: Use separate cooldown
+                if (!isClickSoundReady) return;
+                isClickSoundReady = false;
+
+                const ready = await ensureAudioContext();
+                if (!ready) {
+                    isClickSoundReady = true; // Reset cooldown
+                    return; 
+                }
+
+                // FIX: Use Tone.now() to schedule the sound immediately
+                try {
+                    synth.triggerAttackRelease("C4", "16n", Tone.now()); 
+                } catch (e) {
+                    console.warn("Tone.js click sound error:", e.message);
+                }
+                
+                // Reset cooldown
+                setTimeout(() => { isClickSoundReady = true; }, 50); // 50ms cooldown
+            };
+            
+            const playSelectSound = async () => {
+                // FIX: Use separate cooldown
+                if (!isSelectSoundReady) return; 
+                isSelectSoundReady = false; // Set cooldown immediately
+
+                const ready = await ensureAudioContext();
+                if (!ready) {
+                     isSelectSoundReady = true; // Reset cooldown if audio fails
+                     return; 
+                }
+
+                // FIX: Use Tone.now() to schedule the sound immediately
+                try {
+                    synth.triggerAttackRelease("A3", "32n", Tone.now()); 
+                } catch (e) {
+                    console.warn("Tone.js select sound error:", e.message);
+                }
+                
+                // Reset cooldown after 100ms
+                setTimeout(() => { isSelectSoundReady = true; }, 100); 
+            }
+            
+             // --- Pixel Burst Effect ---
+            const createPixelBurst = (element) => {
+                const rect = element.getBoundingClientRect();
+                const container = document.body; // Or a specific container div
+                const color = window.getComputedStyle(element).color; // Get text color
+                const particleCount = 50; // Number of particles
+
+                // Temporarily hide original element
+                element.style.visibility = 'hidden';
+
+                for (let i = 0; i < particleCount; i++) {
+                    const particle = document.createElement('div');
+                    particle.classList.add('pixel-particle');
+                    particle.style.backgroundColor = color; // Use text color
+
+                    // Start particles roughly where the text was
+                    const startX = rect.left + window.scrollX + rect.width * Math.random();
+                    const startY = rect.top + window.scrollY + rect.height * Math.random();
+                    
+                    particle.style.left = `${startX}px`;
+                    particle.style.top = `${startY}px`;
+
+                    container.appendChild(particle);
+
+                    // Animate outwards
+                    const angle = Math.random() * Math.PI * 2;
+                    const distance = 50 + Math.random() * 50; // Fly out 50-100px
+                    const translateX = Math.cos(angle) * distance;
+                    const translateY = Math.sin(angle) * distance;
+                    const rotation = Math.random() * 360 - 180; // Random rotation
+
+                    // Trigger reflow to ensure transition works
+                    particle.offsetHeight; 
+
+                    particle.style.transform = `translate(${translateX}px, ${translateY}px) rotate(${rotation}deg)`;
+                    particle.style.opacity = '0';
+
+                    // Remove particle after animation
+                    setTimeout(() => {
+                        particle.remove();
+                    }, 600); // Match transition duration
+                }
+                 // Make original element visible again after a short delay
+                 setTimeout(() => {
+                     element.style.visibility = 'visible';
+                 }, 700);
+            };
+
+            // FIX: Use Event Delegation for all clicks
+             document.body.addEventListener('click', (e) => {
+                 const targetElement = e.target.closest('[data-target], .art-thumbnail'); // Look for nav links OR art thumbnails
+                 const modalBgClicked = e.target === zoomModal; // Check if the modal background itself was clicked
+
+                 if (targetElement && targetElement.hasAttribute('data-target')) {
+                      // Handle navigation clicks (menu items, icons, project boxes, back buttons)
+                      const isMenuItem = targetElement.classList.contains('menu-item');
+                      const targetId = targetElement.getAttribute('data-target');
+                    
+                      playClickSound(); // Always play click sound for navigation
+
+                      if (targetId) {
+                         e.preventDefault(); // Prevent default link/button behavior
+                         
+                         if (isMenuItem) {
+                             createPixelBurst(targetElement); // Trigger burst effect
+                             // Delay navigation for burst effect
+                             setTimeout(() => {
+                                 showView(targetId);
+                             }, 600); // Delay matches animation duration
+                         } else {
+                             showView(targetId); // Navigate immediately for other links/buttons
+                         }
+                      }
+                 } else if (targetElement && targetElement.classList.contains('art-thumbnail')) {
+                      // Handle clicks ONLY on art thumbnails for zoom
+                      playClickSound(); 
+                      zoomedImage.src = targetElement.querySelector('img').src;
+                      zoomModal.classList.add('visible');
+                 } else if (modalBgClicked) {
+                      // Handle clicks ONLY on zoom modal background to close
+                       playClickSound(); 
+                       zoomModal.classList.remove('visible');
+                 } else if (e.target.closest('a[target="_blank"]')) {
+                     // Play sound for external links (like study PDFs)
+                     playClickSound();
+                 }
+                 // Form submit button click is handled by its own listener below
+            });
+
+
+            // --- End Sound Effect Setup ---
+
+            // --- Home Page Menu Selector Logic (Check if elements exist) ---
+            if (menuItems.length > 0 && menuSelector) {
+                menuItems.forEach(item => {
+                    item.addEventListener('mouseenter', () => {
+                        const itemTop = item.offsetTop;
+                        menuSelector.style.top = `${itemTop + 8}px`; 
+                        menuItems.forEach(i => i.classList.remove('selected'));
+                        item.classList.add('selected');
+                        playSelectSound();
+                    });
+                });
+            }
+
+            // Function to show a specific view
+            const showView = (viewId) => {
+                views.forEach(view => {
+                    view.classList.toggle('hidden', view.id !== viewId);
+                });
+                window.scrollTo(0, 0); 
+                body.classList.toggle('home-page', viewId === 'home-view');
+                updateTopNavIcons(viewId); // Update top nav icon state
+            };
+            
+             // Function to update the active state of top navigation icons
+            const updateTopNavIcons = (currentViewId) => {
+                topNavIcons.forEach(icon => {
+                    icon.classList.remove('active');
+                    const target = icon.getAttribute('data-target');
+                    // Check if the current view (or its parent view) matches the icon's target
+                    if (currentViewId === target || 
+                       (currentViewId.startsWith('project-detail-') && target === 'projects-view') ||
+                       (currentViewId.startsWith('art-detail-') && target === 'art-view')) { 
+                         icon.classList.add('active');
+                    }
+                });
+            };
+
+
+            // Show home view by default
+            showView('home-view');
+
+            // --- Horizontal Scroll via Mouse Wheel ---
+            document.querySelectorAll('.nes-ui-container').forEach(container => {
+                container.addEventListener('wheel', (e) => {
+                    if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
+                        e.preventDefault(); 
+                        container.scrollBy({ left: e.deltaY > 0 ? -60 : 60, behavior: 'auto' }); 
+                    }
+                });
+            });
+            
+            // --- Art Zoom Modal Logic (Listeners moved to the main body listener) ---
+            // Removed individual listeners
+
+            // --- Contact Form Logic ---
+            if (contactForm && formNotification) {
+                contactForm.addEventListener('submit', (e) => {
+                    e.preventDefault(); // Prevent actual submission
+                    playClickSound(); // Play sound specifically for form submit
+                    
+                    // Show notification
+                    formNotification.style.display = 'block';
+                    
+                    // Reset form fields
+                    contactForm.reset();
+                    
+                    // Hide notification after 3 seconds
+                    setTimeout(() => {
+                        formNotification.style.display = 'none';
+                    }, 3000); 
+                });
+            }
+
+        });
+    </script>
+    
+
+<script src="https://cdn.tailwindcss.com?plugins=aspect-ratio"></script>
+</body>
+</html>
+
