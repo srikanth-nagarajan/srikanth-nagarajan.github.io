@@ -785,23 +785,29 @@
 
                     
 
-<form id="contact-form" class="nes-text-box text-left">
-                        <div class="mb-4">
-                            <label for="name" class="nes-label">Your Name:</label>
-                            <input type="text" id="name" name="name" required class="nes-input">
-                        </div>
-                         <div class="mb-4">
-                            <label for="email" class="nes-label">Your Email:</label>
-                            <input type="email" id="email" name="email" required class="nes-input">
-                        </div>
-                         <div class="mb-4">
-                            <label for="message" class="nes-label">Message:</label>
-                            <textarea id="message" name="message" rows="5" required class="nes-textarea"></textarea>
-                        </div>
-                        <div class="text-center">
-                             <button type="submit" class="nes-button">Send Message</button>
-                        </div>
-                    </form>
+<form id="contact-form" 
+      class="nes-text-box text-left" 
+      action="https://formspree.io/f/xgvppqao" 
+      method="POST">
+    <div class="mb-4">
+        <label for="name" class="nes-label">Your Name:</label>
+        <!-- The 'name' attribute is what Formspree needs -->
+        <input type="text" id="name" name="name" required class="nes-input">
+    </div>
+     <div class="mb-4">
+        <label for="email" class="nes-label">Your Email:</label>
+        <!-- 'name="email"' is special for Formspree to let you reply -->
+        <input type="email" id="email" name="email" required class="nes-input">
+    </div>
+     <div class="mb-4">
+        <label for="message" class="nes-label">Message:</label>
+        <textarea id="message" name="message" rows="5" required class="nes-textarea"></textarea>
+    </div>
+    <div class="text-center">
+         <button type="submit" class="nes-button">Send Message</button>
+    </div>
+</form>
+
                     
                     
 
@@ -1229,24 +1235,7 @@
             // --- Art Zoom Modal Logic (Listeners moved to the main body listener) ---
             // Removed individual listeners
 
-            // --- Contact Form Logic ---
-            if (contactForm && formNotification) {
-                contactForm.addEventListener('submit', (e) => {
-                    e.preventDefault(); // Prevent actual submission
-                    playClickSound(); // Play sound specifically for form submit
-                    
-                    // Show notification
-                    formNotification.style.display = 'block';
-                    
-                    // Reset form fields
-                    contactForm.reset();
-                    
-                    // Hide notification after 3 seconds
-                    setTimeout(() => {
-                        formNotification.style.display = 'none';
-                    }, 3000); 
-                });
-            }
+            
 
         });
     </script>
