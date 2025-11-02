@@ -125,7 +125,7 @@
         /* Specific page adjustments for content alignment */
         /* Removed studies-view, about-view */
         #contact-view, 
-        #project-detail-1, #project-detail-2, #project-detail-3, #project-detail-4, #project-detail-5, /* #project-detail-6, #project-detail-7, */ /* Removed placeholders */
+        #project-detail-1, #project-detail-2, #project-detail-3, #project-detail-4, #project-detail-5, #project-detail-6, /* Removed #project-detail-7 */
         #art-detail-1, #art-detail-2, #art-detail-3, #art-detail-4, #art-detail-5, #art-detail-6 {
             justify-content: space-between; /* Push content to top, button/footer to bottom */
         }
@@ -655,20 +655,20 @@
                         </div>
                         
 
-<a href="your-study-1.pdf" target="_blank" class="project-box"> 
+<div class="project-box" data-target="project-detail-6"> 
                             <img src="https://placehold.co/300x320/222/fff?text=Study+1+Cover" alt="Study 1" class="project-box-image">
                              <div class="project-box-text-content">
-                                 <p class="project-box-desc">Short description about Study 1... Click to open PDF.</p>
+                                 <p class="project-box-desc">Short description about Study 1...</p>
                                  <div class="project-box-footer text-lg sm:text-xl">
                                      <span>Study/Decon 1</span> 
                                      <span class="project-box-icon">📄</span> 
                                  </div>
                              </div>
-                        </a>
+                        </div>
                         
 
 <a href="your-study-2.pdf" target="_blank" class="project-box"> 
-                            <img src="https::/placehold.co/300x320/222/fff?text=Study+2+Cover" alt="Study 2" class="project-box-image"> <div class="project-box-text-content">
+                            <img src="https://placehold.co/300x320/222/fff?text=Study+2+Cover" alt="Study 2" class="project-box-image"> <div class="project-box-text-content">
                                  <p class="project-box-desc">Short description about Study 2... Click to open PDF.</p>
                                  <div class="project-box-footer text-lg sm:text-xl">
                                      <span>Study/Decon 2</span> 
@@ -786,17 +786,15 @@
                     
 
 <form id="contact-form" 
-      class="nes-text-box text-left" 
-      action="https://formspree.io/f/xgvppqao" 
-      method="POST">
+    class="nes-text-box text-left" 
+    action="https://formspree.io/f/xgvppqao" 
+    method="POST">
     <div class="mb-4">
         <label for="name" class="nes-label">Your Name:</label>
-        <!-- The 'name' attribute is what Formspree needs -->
         <input type="text" id="name" name="name" required class="nes-input">
     </div>
      <div class="mb-4">
         <label for="email" class="nes-label">Your Email:</label>
-        <!-- 'name="email"' is special for Formspree to let you reply -->
         <input type="email" id="email" name="email" required class="nes-input">
     </div>
      <div class="mb-4">
@@ -831,7 +829,7 @@
                    <div class="grid md:grid-cols-3 gap-8 text-sm"><div class="md:col-span-2 nes-text-box"><h3 class="text-lg font-bold mb-4">About The Game</h3><p class="mb-4 leading-relaxed">...</p><p class="leading-relaxed">...</p></div><div class="nes-text-box"><h3 class="text-lg font-bold mb-4">Links</h3><div class="space-y-4">
                      <a href="#" target="_blank" class="nes-button block text-center !p-3 !m-0 text-xs">Play on Itch.io</a>
                      <a href="#" target="_blank" class="nes-button block text-center !p-3 !m-0 text-xs">Gameplay Video</a>
-                     </div></div></div>
+                   </div></div></div>
                    
                    <div class="mt-16 container mx-auto">
                      <h3 class="text-xl sm:text-2xl font-bold mb-6 text-center">Project Gallery</h3>
@@ -854,7 +852,7 @@
         </section>
         <section id="project-detail-2" class="page-view hidden px-4 pb-12 min-h-screen">
                  <div><div class="container mx-auto"><button class="nes-button back-button mb-8" data-target="projects-view">&lt; Back</button><h2 class="text-2xl sm:text-3xl font-bold text-center mb-8">Project 2 Detail</h2>
-                  <div class="mb-12 aspect-w-16 aspect-h-9 bg-black rounded-lg overflow-hidden border-4 border-b-8 border-gray-400"><iframe src="https://www.youtube.com/embed/nl2H1IjHpjg?si=KCCXzzhHuMWaR_mi" title="YouTube video player" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen class="w-full h-full"></iframe></div>
+                 <div class="mb-12 aspect-w-16 aspect-h-9 bg-black rounded-lg overflow-hidden border-4 border-b-8 border-gray-400"><iframe src="https://www.youtube.com/embed/nl2H1IjHpjg?si=KCCXzzhHuMWaR_mi" title="YouTube video player" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen class="w-full h-full"></iframe></div>
                    <div class="grid md:grid-cols-3 gap-8 text-sm"><div class="md:col-span-2 nes-text-box"><h3 class="text-lg font-bold mb-4">About The Game</h3><p class="mb-4 leading-relaxed">...</p><p class="leading-relaxed">...</p></div><div class="nes-text-box"><h3 class="text-lg font-bold mb-4">Links</h3><div class="space-y-4">
                      <a href="#" target="_blank" class="nes-button block text-center !p-3 !m-0 text-xs">Play on Itch.io</a>
                      <a href="#" target="_blank" class="nes-button block text-center !p-3 !m-0 text-xs">Gameplay Video</a>
@@ -889,7 +887,7 @@
                      <a href="your-gdd-3.pdf" target="_blank" class="nes-button block text-center !p-3 !m-0 text-xs">View Full GDD (PDF)</a>
                    </div></div></div>
                    
-                 <div class="mt-16 container mx-auto">
+               <div class="mt-16 container mx-auto">
                      <h3 class="text-xl sm:text-2xl font-bold mb-6 text-center">Game Design Document</h3>
                        <div class="project-slide-gallery max-w-4xl mx-auto space-y-4">
                          <div class="art-thumbnail project-slide"><img src="images/Cawboy/Slide-01.jpg" alt="Project Slide 1"></div>
@@ -942,7 +940,7 @@
                    <div class="grid md:grid-cols-3 gap-8 text-sm"><div class="md:col-span-2 nes-text-box"><h3 class="text-lg font-bold mb-4">About The Game</h3><p class="mb-4 leading-relaxed">...</p><p class="leading-relaxed">...</p></div><div class="nes-text-box"><h3 class="text-lg font-bold mb-4">Links</h3><div class="space-y-4">
                      <a href="#" target="_blank" class="nes-button block text-center !p-3 !m-0 text-xs">Play on Itch.io</a>
                      <a href="#" target="_blank" class="nes-button block text-center !p-3 !m-0 text-xs">Gameplay Video</a>
-                     </div></div></div>
+                   </div></div></div>
                    
                    <div class="mt-16 container mx-auto">
                      <h3 class="text-xl sm:text-2xl font-bold mb-6 text-center">Project Gallery</h3>
@@ -964,6 +962,33 @@
                </div></div><div class="text-center mt-auto"></div>
         </section>
         
+<section id="project-detail-6" class="page-view hidden px-4 pb-12 min-h-screen">
+    <div>
+        <div class="container mx-auto">
+            <button class="nes-button back-button mb-8" data-target="projects-view">&lt; Back</button>
+            <h2 class="text-2xl sm:text-3xl font-bold text-center mb-8">Study 1 Detail</h2>
+            
+            <div class="mb-12 aspect-w-16 aspect-h-9 bg-black rounded-lg overflow-hidden border-4 border-b-8 border-gray-400">
+                <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="w-full h-full"></iframe>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8 text-sm">
+                <div class="md:col-span-2 nes-text-box">
+                    <h3 class="text-lg font-bold mb-4">About This Study</h3>
+                    <p class="mb-4 leading-relaxed">Add your description for Study 1 here...</p>
+                    <p class="leading-relaxed">More details about the study...</p>
+                </div>
+                <div class="nes-text-box">
+                    <h3 class="text-lg font-bold mb-4">Links</h3>
+                    <div class="space-y-4">
+                        <a href="your-study-1-gdd.pdf" target="_blank" class="nes-button block text-center !p-3 !m-0 text-xs">View GDD (PDF)</a>
+                    </div>
+                </div>
+            </div>
+            
+            </div>
+    </div>
+    <div class="text-center mt-auto"></div> </section>
 <section id="art-detail-1" class="page-view hidden px-4 pb-12">
                  <div> <div class="container mx-auto"> <button class="nes-button back-button mb-8" data-target="art-view">&lt; Back</button> <h2 class="text-2xl sm:text-3xl font-bold text-center mb-8">Art Piece 1 Title</h2> <div class="project-slide-gallery max-w-4xl mx-auto space-y-4"> <div class="art-thumbnail project-slide"><img src="https" alt="Art Image 1"></div> <div class="art-thumbnail project-slide"><img src="https" alt="Art Image 2"></div> <div class="art-thumbnail project-slide"><img src="https" alt="Art Image 3"></div> <div class="art-thumbnail project-slide"><img src="https" alt="Art Image 4"></div> <div class="art-thumbnail project-slide"><img src="https" alt="Art Image 5"></div> <div class="art-thumbnail project-slide"><img src="https" alt="Art Image 6"></div> </div> </div> </div> <div class="text-center mt-auto"></div> 
         </section>
@@ -1236,6 +1261,51 @@
             // Removed individual listeners
 
             
+            // --- UPDATED Contact Form Logic ---
+            if (contactForm && formNotification) {
+                contactForm.addEventListener('submit', async (e) => {
+                    e.preventDefault(); // Prevent default submission for JS handling
+                    playClickSound(); // Play sound
+                    
+                    const formData = new FormData(contactForm);
+                    
+                    try {
+                        const response = await fetch(contactForm.action, {
+                            method: contactForm.method,
+                            body: formData,
+                            headers: {
+                                'Accept': 'application/json'
+                            }
+                        });
+                        
+                        if (response.ok) {
+                            // Show success notification
+                            formNotification.style.display = 'block';
+                            formNotification.textContent = 'Message Sent! Thanks for reaching out.';
+                            formNotification.classList.remove('text-red-700'); // Ensure it's not red
+                            formNotification.classList.add('text-green-700'); // Ensure it's green
+                            contactForm.reset(); // Reset form
+                        } else {
+                            // Handle errors (e.g., Formspree error)
+                            formNotification.style.display = 'block';
+                            formNotification.textContent = 'Error sending message. Please try again.';
+                            formNotification.classList.remove('text-green-700');
+                            formNotification.classList.add('text-red-700'); // Make it red for error
+                        }
+                    } catch (error) {
+                        // Handle network errors
+                        formNotification.style.display = 'block';
+                        formNotification.textContent = 'Network error. Please try again.';
+                        formNotification.classList.remove('text-green-700');
+                        formNotification.classList.add('text-red-700');
+                    }
+                    
+                    // Hide notification after 3 seconds
+                    setTimeout(() => {
+                        formNotification.style.display = 'none';
+                    }, 3000); 
+                });
+            }
 
         });
     </script>
