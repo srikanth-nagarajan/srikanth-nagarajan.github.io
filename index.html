@@ -303,7 +303,7 @@
              flex-grow: 1; /* Allow text content to take remaining space */
              display: flex;
              flex-direction: column;
-             justify-content: space-between; /* Push footer down */
+             justify-content: flex-start; /* UPDATED from space-between */
         }
 
 
@@ -313,13 +313,14 @@
             align-items: center;
             color: #222;
             /* font-size: 1.25rem; */ /* Replaced with Tailwind */
-            margin-top: auto; /* Push footer to bottom */
+            /* margin-top: auto; */ /* REMOVED */
+            margin-bottom: 0.5rem; /* ADDED */
         }
          /* Added description style */
         .project-box-desc {
             font-size: 0.75rem; /* text-xs */
             color: #555; /* Darker gray */
-            margin-top: 0.5rem; /* Space above description */
+            /* margin-top: 0.5rem; */ /* REMOVED */
             line-height: 1.4; /* Adjust line height */
         }
 
@@ -632,11 +633,11 @@
 <div class="project-box" data-target="project-detail-2">
                             <img src="images/CouchClash.png" alt="Project 2" class="project-box-image">
                             <div class="project-box-text-content">
-                                <p class="project-box-desc">Couch-fighting game where winning is battling both on-screen and off through playful distractions.</p>
                                 <div class="project-box-footer text-lg sm:text-xl">
                                     <span>Couch Clash</span>
                                     <span class="project-box-icon">2P</span>
                                 </div>
+                                <p class="project-box-desc">Game Design, 2D Art & Animation, 3D Character Design.</p>
                             </div>
                         </div>
                         
@@ -644,11 +645,11 @@
 <div class="project-box" data-target="project-detail-1">
                             <img src="images/Stuntclub_normall.png" alt="Project 1" class="project-box-image">
                              <div class="project-box-text-content">
-                                 <p class="project-box-desc">A Stuntman chains high-risk sequences across movie sets, all in one take</p>
                                  <div class="project-box-footer text-lg sm:text-xl">
                                      <span>Stunt Club</span>
                                      <span class="project-box-icon">1P</span>
                                  </div>
+                                 <p class="project-box-desc">Game Design, Level Design, 3D Assets, Animations.</p>
                              </div>
                         </div>
                         
@@ -656,11 +657,11 @@
 <div class="project-box" data-target="project-detail-3">
                             <img src="images/Cawboy.png" alt="Project 3" class="project-box-image">
                              <div class="project-box-text-content">
-                                 <p class="project-box-desc">A crow-headed cowboy flips between two realms to survive a surreal desert</p>
                                  <div class="project-box-footer text-lg sm:text-xl">
                                      <span>CawBoy</span>
                                      <span class="project-box-icon">1P</span>
                                  </div>
+                                 <p class="project-box-desc">A crow-headed cowboy flips between two realms to survive a surreal desert</p>
                              </div>
                         </div>
                         
@@ -668,11 +669,11 @@
 <div class="project-box" data-target="project-detail-4">
                             <img src="images/H2oh.png" alt="Project 4" class="project-box-image">
                              <div class="project-box-text-content">
-                                 <p class="project-box-desc">A strategic card game where players balance flow and hold states of water</p>
                                  <div class="project-box-footer text-lg sm:text-xl">
                                      <span>H2OH!</span>
                                      <span class="project-box-icon">2P</span>
                                  </div>
+                                 <p class="project-box-desc">A strategic card game where players balance flow and hold states of water</p>
                              </div>
                         </div>
                         
@@ -680,11 +681,11 @@
 <div class="project-box" data-target="project-detail-5">
                             <img src="images/Sochalay.png" alt="Project 5" class="project-box-image">
                              <div class="project-box-text-content">
-                                 <p class="project-box-desc">Relaxing digital sandbox where you create your own funny toilet-wall graffiti</p>
                                  <div class="project-box-footer text-lg sm:text-xl">
                                      <span>Sochalay</span>
                                      <span class="project-box-icon">1P</span>
                                  </div>
+                                 <p class="project-box-desc">Relaxing digital sandbox where you create your own funny toilet-wall graffiti</p>
                              </div>
                         </div>
                         
@@ -692,22 +693,22 @@
 <div class="project-box" data-target="project-detail-6"> 
                             <img src="images/Gamification.png" alt="Study 1" class="project-box-image">
                              <div class="project-box-text-content">
-                                 <p class="project-box-desc">A gamified alarm app that uses a "chase-the-button" reaction test to measure your morning alertness.</p>
                                  <div class="project-box-footer text-lg sm:text-xl">
                                      <span>Alarm Gamification</span> 
                                      <span class="project-box-icon">📄</span> 
                                  </div>
+                                 <p class="project-box-desc">A gamified alarm app that uses a "chase-the-button" reaction test to measure your morning alertness.</p>
                              </div>
                         </div>
                         
 
 <a href="your-study-2.pdf" target="_blank" class="project-box"> 
                             <img src="https://placehold.co/300x320/222/fff?text=Study+2+Cover" alt="Study 2" class="project-box-image"> <div class="project-box-text-content">
-                                 <p class="project-box-desc">Short description about Study 2... Click to open PDF.</p>
                                  <div class="project-box-footer text-lg sm:text-xl">
                                      <span>Study/Decon 2</span> 
                                      <span class="project-box-icon">📄</span> 
                                  </div>
+                                 <p class="project-box-desc">Short description about Study 2... Click to open PDF.</p>
                              </div>
                         </a>
                     </div>
@@ -731,10 +732,10 @@
 <div class="project-box" data-target="art-detail-1">
                             <img src="https" alt="Art 1" class="project-box-image">
                              <div class="project-box-text-content">
-                                 <p class="project-box-desc">Short description about Art Piece 1...</p>
                                  <div class="project-box-footer text-lg sm:text-xl">
                                      <span>Art Piece 1</span>
                                  </div>
+                                 <p class="project-box-desc">Short description about Art Piece 1...</p>
                              </div>
                         </div>
                         
@@ -742,10 +743,10 @@
 <div class="project-box" data-target="art-detail-2">
                             <img src="https" alt="Art 2" class="project-box-image">
                              <div class="project-box-text-content">
-                                 <p class="project-box-desc">Short description about Art Piece 2...</p>
                                  <div class="project-box-footer text-lg sm:text-xl">
                                      <span>Art Piece 2</span>
                                  </div>
+                                 <p class="project-box-desc">Short description about Art Piece 2...</p>
                              </div>
                         </div>
                         
@@ -753,10 +754,10 @@
 <div class="project-box" data-target="art-detail-3">
                             <img src="https" alt="Art 3" class="project-box-image">
                             <div class="project-box-text-content">
-                                <p class="project-box-desc">Short description about Art Piece 3...</p>
                                 <div class="project-box-footer text-lg sm:text-xl">
                                     <span>Art Piece 3</span>
                                 </div>
+                                <p class="project-box-desc">Short description about Art Piece 3...</p>
                             </div>
                         </div>
                         
@@ -764,10 +765,10 @@
 <div class="project-box" data-target="art-detail-4">
                             <img src="https" alt="Art 4" class="project-box-image">
                              <div class="project-box-text-content">
-                                 <p class="project-box-desc">Short description about Art Piece 4...</p>
                                  <div class="project-box-footer text-lg sm:text-xl">
                                      <span>Art Piece 4</span>
                                  </div>
+                                 <p class="project-box-desc">Short description about Art Piece 4...</p>
                              </div>
                         </div>
                         
