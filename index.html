@@ -323,6 +323,24 @@
             /* margin-top: 0.5rem; */ /* REMOVED */
             line-height: 1.4; /* Adjust line height */
         }
+        
+        /* NEW: Tag Styles */
+        .project-tag-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px; /* Spacing between tags */
+            margin-top: 0.75rem; /* 12px space below the title/footer */
+        }
+        .project-tag {
+            display: inline-block;
+            background-color: #b0b0b0; /* NES Gray */
+            color: #222; /* Dark text */
+            border: 2px solid #222;
+            padding: 4px 8px;
+            font-size: 0.7rem; /* Small font */
+            text-shadow: none;
+            border-radius: 4px; /* "round rect" */
+        }
 
 
         .project-box-icon {
@@ -637,7 +655,11 @@
                                     <span>Couch Clash</span>
                                     <span class="project-box-icon">2P</span>
                                 </div>
-                                <p class="project-box-desc">Game Design, 2D Art & Animation, 3D Character Design.</p>
+                                <div class="project-tag-container">
+                                    <span class="project-tag">Game Designer</span>
+                                    <span class="project-tag">2D Artist</span>
+                                    <span class="project-tag">3D Character Artist</span>
+                                </div>
                             </div>
                         </div>
                         
@@ -649,7 +671,12 @@
                                      <span>Stunt Club</span>
                                      <span class="project-box-icon">1P</span>
                                  </div>
-                                 <p class="project-box-desc">Game Design, Level Design, 3D Assets, Animations.</p>
+                                 <div class="project-tag-container">
+                                    <span class="project-tag">Game Designer</span>
+                                    <span class="project-tag">Level Designer</span>
+                                    <span class="project-tag">3D Assets</span>
+                                    <span class="project-tag">Animator</span>
+                                 </div>
                              </div>
                         </div>
                         
@@ -661,7 +688,11 @@
                                      <span>CawBoy</span>
                                      <span class="project-box-icon">1P</span>
                                  </div>
-                                 <p class="project-box-desc">A crow-headed cowboy flips between two realms to survive a surreal desert</p>
+                                 <div class="project-tag-container">
+                                    <span class="project-tag">Game Designer</span>
+                                    <span class="project-tag">Level Designer</span>
+                                    <span class="project-tag">Artist</span>
+                                 </div>
                              </div>
                         </div>
                         
@@ -673,7 +704,9 @@
                                      <span>H2OH!</span>
                                      <span class="project-box-icon">2P</span>
                                  </div>
-                                 <p class="project-box-desc">A strategic card game where players balance flow and hold states of water</p>
+                                 <div class="project-tag-container">
+                                    <span class="project-tag">Game Designer</span>
+                                 </div>
                              </div>
                         </div>
                         
@@ -685,7 +718,10 @@
                                      <span>Sochalay</span>
                                      <span class="project-box-icon">1P</span>
                                  </div>
-                                 <p class="project-box-desc">Relaxing digital sandbox where you create your own funny toilet-wall graffiti</p>
+                                 <div class="project-tag-container">
+                                    <span class="project-tag">Artist</span>
+                                    <span class="project-tag">Designer</span>
+                                 </div>
                              </div>
                         </div>
                         
@@ -697,7 +733,10 @@
                                      <span>Alarm Gamification</span> 
                                      <span class="project-box-icon">📄</span> 
                                  </div>
-                                 <p class="project-box-desc">A gamified alarm app that uses a "chase-the-button" reaction test to measure your morning alertness.</p>
+                                 <div class="project-tag-container">
+                                    <span class="project-tag">Concept</span>
+                                    <span class="project-tag">UI/UX</span>
+                                 </div>
                              </div>
                         </div>
                         
@@ -708,7 +747,9 @@
                                      <span>Study/Decon 2</span> 
                                      <span class="project-box-icon">📄</span> 
                                  </div>
-                                 <p class="project-box-desc">Short description about Study 2... Click to open PDF.</p>
+                                 <div class="project-tag-container">
+                                    <span class="project-tag">Analysis</span>
+                                 </div>
                              </div>
                         </a>
                     </div>
@@ -735,7 +776,9 @@
                                  <div class="project-box-footer text-lg sm:text-xl">
                                      <span>Art Piece 1</span>
                                  </div>
-                                 <p class="project-box-desc">Short description about Art Piece 1...</p>
+                                 <div class="project-tag-container">
+                                    <span class="project-tag">Pixel Art</span>
+                                 </div>
                              </div>
                         </div>
                         
@@ -746,7 +789,9 @@
                                  <div class="project-box-footer text-lg sm:text-xl">
                                      <span>Art Piece 2</span>
                                  </div>
-                                 <p class="project-box-desc">Short description about Art Piece 2...</p>
+                                 <div class="project-tag-container">
+                                    <span class="project-tag">Pixel Art</span>
+                                 </div>
                              </div>
                         </div>
                         
@@ -757,7 +802,9 @@
                                 <div class="project-box-footer text-lg sm:text-xl">
                                     <span>Art Piece 3</span>
                                 </div>
-                                <p class="project-box-desc">Short description about Art Piece 3...</p>
+                                <div class="project-tag-container">
+                                    <span class="project-tag">2D Art</span>
+                                 </div>
                             </div>
                         </div>
                         
@@ -768,7 +815,9 @@
                                  <div class="project-box-footer text-lg sm:text-xl">
                                      <span>Art Piece 4</span>
                                  </div>
-                                 <p class="project-box-desc">Short description about Art Piece 4...</p>
+                                 <div class="project-tag-container">
+                                    <span class="project-tag">Logo</span>
+                                 </div>
                              </div>
                         </div>
                         
