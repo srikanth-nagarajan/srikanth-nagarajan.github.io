@@ -491,7 +491,7 @@
             max-height: 95vh; /* Almost full page height */
             object-fit: contain;
             border: 5px solid #fff;
-            /*image-rendering: pixelated; /* Keep pixel art crisp */
+            /* image-rendering: pixelated; */ /* REMOVED as requested */
         }
 
         /* NEW: Pixel Burst Effect */
@@ -541,45 +541,15 @@
              margin-top: 1.5rem;
         }
 
-        /* NEW: Password Lock Screen */
-        .password-lock-screen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background-color: #2a2a3e; /* Match body background */
-            z-index: 1000;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-        }
-        
-        /* NEW: Shake animation for password error */
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
-            20%, 40%, 60%, 80% { transform: translateX(5px); }
-        }
-        .shake {
-            animation: shake 0.5s ease-in-out;
-        }
+        /* REMOVED: Password Lock Screen */
+
+        /* REMOVED: Shake animation for password error */
 
     </style>
 </head>
 <body class="antialiased">
     
-    <div id="password-lock-screen" class="password-lock-screen">
-        <div class="nes-text-box text-center">
-            <label for="password-input" class="nes-label">Enter Password</label>
-            <input type="password" id="password-input" class="nes-input">
-            <button id="password-submit" class="nes-button mt-4">Unlock</button>
-            <p id="password-error" class="!text-red-500 text-xs mt-4 hidden" style="text-shadow: none; color: #c04040;">Incorrect Password</p>
-        </div>
-    </div>
-    
-    <div id="main-content" style="display: none;">
+    <div id="main-content">
         
 
 <header class="fixed top-0 left-0 right-0 z-50">
@@ -742,20 +712,7 @@
                              </div>
                         </div>
                         
-
-<a href="your-study-2.pdf" target="_blank" class="project-box"> 
-                            <img src="https://placehold.co/300x320/222/fff?text=Study+2+Cover" alt="Study 2" class="project-box-image"> <div class="project-box-text-content">
-                                 <div class="project-box-footer text-lg sm:text-xl">
-                                     <span>Study/Decon 2</span> 
-                                     <span class="project-box-icon">📄</span> 
-                                 </div>
-                                 <div class="project-tag-container">
-                                    <span class="project-tag">Analysis</span>
-                                    <span class="project-tag">Documentation</span>
-                                 </div>
-                             </div>
-                        </a>
-                    </div>
+</div>
                 </div>
                 <p class="text-center text-gray-400 text-xs mt-4">SCROLL ON BOXES TO EXPLORE</p>
             </div>
@@ -820,6 +777,19 @@
                                  </div>
                                  <div class="project-tag-container">
                                     <span class="project-tag">Logo</span>
+                                 </div>
+                             </div>
+                        </div>
+                        
+
+<div class="project-box" data-target="art-detail-5">
+                            <img src="https" alt="Art 5" class="project-box-image">
+                             <div class="project-box-text-content">
+                                 <div class="project-box-footer text-lg sm:text-xl">
+                                     <span>Art Piece 5</span>
+                                 </div>
+                                 <div class="project-tag-container">
+                                    <span class="project-tag">Pixel Art</span>
                                  </div>
                              </div>
                         </div>
@@ -1055,7 +1025,17 @@
         </section>
 
         <section id="art-detail-4" class="page-view hidden px-4 pb-12">
-            <div> <div class="container mx-auto"> <button class="nes-button back-button mb-8" data-target="art-view">&lt; Back</button> <h2 class="text-2xl sm:text-3xl font-bold text-center mb-8">Art Piece 4 Title</h2> <div class="project-slide-gallery max-w-4xl mx-auto space-y-4"> <div class="art-thumbnail project-slide"><img src="https" alt="Art Image 1"></div> <div class="art-thumbnail project-slide"><img src="https" alt="Art Image 2"></div> <div class="art-thumbnail project-slide"><img src="https" alt="Art Image 3"></div> <div class="art-thumbnail project-slide"><img src="https" alt="Art Image 4"></div> <div class="art-thumbnail project-slide"><img src="https" alt="Art Image 5"></div> <div class="art-thumbnail project-slide"><img src="https" alt="Art Image 6"></div> </div> </div> </div> <div class="text-center mt-auto"></div>
+            <div> <div class="container mx-auto"> <button class="nes-button back-button mb-8" data-target="art-view">&lt; Back</button> <h2 class="text-2xl sm:text-3xl font-bold text-center mb-8">Art Piece 4 Title</h2> <div class="project-slide-gallery max-w-4xl mx-auto space-y-4"> <div class="art-thumbnail project-slide"><img src="https" alt="Art Image 1"></div> <div class="art-thumbnail project-slide"><img src="https" alt="Art Image 2"></div> <div class="art-thumbnail project-slide"><img src="https" alt="Art Image 3"></div> <div class="art-thumbnail project-slide"><img src="https" alt="Art Image 4"></div> <div class="art-thumbnail project-slide"><img src="https" alt="Art Image 5"></div> <div class="art-thumbnail project-slide"><img src="https" alt="Art Image 6"></div>
+                <div class="art-thumbnail project-slide"><img src="https" alt="Art Image 7"></div>
+                <div class="art-thumbnail project-slide"><img src="https" alt="Art Image 8"></div>
+                <div class="art-thumbnail project-slide"><img src="https" alt="Art Image 9"></div>
+                <div class="art-thumbnail project-slide"><img src="https" alt="Art Image 10"></div>
+                <div class="art-thumbnail project-slide"><img src="https" alt="Art Image 11"></div>
+            </div> </div> </div> <div class="text-center mt-auto"></div>
+        </section>
+
+        <section id="art-detail-5" class="page-view hidden px-4 pb-12">
+            <div> <div class="container mx-auto"> <button class="nes-button back-button mb-8" data-target="art-view">&lt; Back</button> <h2 class="text-2xl sm:text-3xl font-bold text-center mb-8">Art Piece 5 Title</h2> <div class="project-slide-gallery max-w-4xl mx-auto space-y-4"> <div class="art-thumbnail project-slide"><img src="https" alt="Art Image 1"></div> <div class="art-thumbnail project-slide"><img src="https" alt="Art Image 2"></div> <div class="art-thumbnail project-slide"><img src="https" alt="Art Image 3"></div> <div class="art-thumbnail project-slide"><img src="https" alt="Art Image 4"></div> <div class="art-thumbnail project-slide"><img src="https" alt="Art Image 5"></div> <div class="art-thumbnail project-slide"><img src="https" alt="Art Image 6"></div> </div> </div> </div> <div class="text-center mt-auto"></div>
         </section>
 
 </div> <div id="zoom-modal" class="zoom-modal">
@@ -1078,17 +1058,8 @@
             const contactForm = document.getElementById('contact-form'); // Added contact form reference
             const formNotification = document.getElementById('form-notification'); // Added notification reference
 
-            // --- NEW: Password Lock Elements ---
-            const lockScreen = document.getElementById('password-lock-screen');
-            const passwordInput = document.getElementById('password-input');
-            const passwordSubmit = document.getElementById('password-submit');
-            const passwordError = document.getElementById('password-error');
-            const mainContent = document.getElementById('main-content');
+            // --- REMOVED: Password Lock Elements ---
             
-            // --- NEW: Set your password here ---
-            const SECRET_PASSWORD = "9494";
-
-
             // --- Sound Effect Setup ---
             const synth = new Tone.Synth().toDestination();
             synth.oscillator.type = "square"; 
@@ -1126,7 +1097,6 @@
             // UPDATED: Also attach to password screen elements
             document.body.addEventListener('click', startAudio, { once: true });
             document.body.addEventListener('touchend', startAudio, { once: true });
-            passwordInput.addEventListener('keydown', startAudio, { once: true });
 
 
             const playClickSound = async () => {
@@ -1303,8 +1273,8 @@
             };
 
 
-            // Show home view by default - MOVED to password check
-            // showView('home-view'); // <-- DO NOT RUN ON LOAD
+            // Show home view by default - RESTORED
+            showView('home-view');
 
             // --- Horizontal Scroll via Mouse Wheel ---
             document.querySelectorAll('.nes-ui-container').forEach(container => {
@@ -1366,38 +1336,7 @@
                 });
             }
 
-            // --- NEW: Password Check Logic ---
-            const checkPassword = () => {
-                ensureAudioContext(); // Make sure audio is ready
-
-                if (passwordInput.value === SECRET_PASSWORD) {
-                    // Correct password
-                    playClickSound(); // Play success sound
-                    lockScreen.style.display = 'none'; // Hide lock screen
-                    mainContent.style.display = 'block'; // Show main content
-                    showView('home-view'); // Initialize the page
-                } else {
-                    // Incorrect password
-                    playSelectSound(); // Play "fail" sound
-                    passwordError.classList.remove('hidden'); // Show error
-                    passwordInput.classList.add('shake'); // Shake input
-                    passwordInput.value = ""; // Clear input
-                    
-                    // Remove shake/error after animation
-                    setTimeout(() => {
-                        passwordInput.classList.remove('shake');
-                        passwordError.classList.add('hidden');
-                    }, 500);
-                }
-            };
-            
-            passwordSubmit.addEventListener('click', checkPassword);
-            
-            passwordInput.addEventListener('keypress', (e) => {
-                if (e.key === 'Enter') {
-                    checkPassword(); // Allow pressing Enter
-                }
-            });
+            // --- REMOVED: Password Check Logic ---
 
         });
     </script>
